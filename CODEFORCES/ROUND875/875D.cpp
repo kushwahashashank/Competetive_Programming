@@ -2,39 +2,58 @@
 using namespace std;
 #define ll long long
 
-int main(){
+const ll maxn = 2 * 1e5 + 5, maxroot = 640;
+int m[maxroot][maxn];
+ll a[maxn], b[maxn];
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
     int TESTCASES;
-    cin>>TESTCASES;
-    while(TESTCASES--){
-        int n;
-        cin>>n;
-        int a[n];
-        vector<pair<int,int> >v;
-        for(int i=0;i<n;i++){
-            cin>>a[i];
+    cin >> TESTCASES;
+    while (TESTCASES--)
+    {
+        ll n;
+        cin >> n;
+        ll val = sqrt(2 * n);
+        for (int i = 0; i < n; i++)
+        {
+            cin >> a[i];
         }
-        for(int i=0;i<n;i++){
-            int x;
-            cin>>x;
-            v.push_back(make_pair(a[i],x));
+        for (int i = 0; i < n; i++)
+        {
+            cin >> b[i];
+            if (a[i] <= val)
+                m[a[i]][b[i]]++;
         }
-        sort(v.begin(),v.end());
-        int i=-1,j=1;
-        int ans=0;
-        while(i<n && i+1<n){
-            i++;
-            j=i+1;
-            while(v[i].first*v[j].first<= 2*n && i<n && j<n){
-                if(v[i].first*v[j].first == v[i].second + v[j].second){
-                    ans++;
-                }
-                j++;
-            }
-            if(i+1==j && v[i].first*v[j].first > 2*n){
-                break;
+        ll ans = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i] <= val)
+            {
+                if (a[i] * a[i] - b[i] >= 1 && a[i] * a[i] - b[i] <= n)
+                    ans += m[a[i]][a[i] * a[i] - b[i]];
             }
         }
-        cout<<ans<<endl;
+        for (int i = 2; i <= val; i += 2)
+            ans -= m[i][i * i / 2];
+        ans /= 2;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 1; j <= val && j < a[i] && j * a[i] <= 2 * n; j++)
+            {
+                if (j * a[i] - b[i] >= 1 && j * a[i] - b[i] <= n)
+                    ans += m[j][j * a[i] - b[i]];
+            }
+        }
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i] <= val)
+                m[a[i]][b[i]] = 0;
+        }
+
+        cout << ans << endl;
     }
     return 0;
 }
