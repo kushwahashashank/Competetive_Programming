@@ -8,14 +8,12 @@ int main()
     cin >> TESTCASES;
     while (TESTCASES--)
     {
-        long long n, k;
+        ll n, k;
         cin >> n >> k;
-        priority_queue<long long> q;
+        vector<ll> v(n, 0);
         for (int i = 0; i < n; i++)
         {
-            long long aj;
-            cin >> aj;
-            q.push(aj);
+            cin >> v[i];
         }
         if (n < k)
         {
@@ -23,28 +21,43 @@ int main()
         }
         else
         {
-            long long ans = 0;
-            long long a[k];
-            while (true)
+            ll i = 0;
+            ll j = (long long)1e18;
+            sort(v.begin(), v.end(), greater<long long>());
+            ll ans = 0;
+            while (i <= j)
             {
-                long long m = INT_MAX;
-                for (int i = 0; i < k; i++)
+                ll mid = (i + j) / 2;
+                ll no_of_elements = 0, rest = 0;
+                for (int i = 0; i < n; i++)
                 {
-                    a[i] = q.top();
-                    q.pop();
-                    m = min(m, a[i]);
+                    if (rest == 0)
+                    {
+                        if (v[i] >= mid)
+                        {
+                            no_of_elements++;
+                        }
+                        else
+                            rest = +v[i];
+                    }
+                    else
+                    {
+                        rest += v[i];
+                        if (rest >= mid)
+                        {
+                            rest -= mid;
+                            no_of_elements++;
+                        }
+                    }
                 }
-                if (m == 0)
+                if (no_of_elements >= k)
                 {
-                    break;
+                    ans = max(ans, mid);
+                    i = mid + 1;
                 }
                 else
                 {
-                    ans += m;
-                    for (int i = 0; i < k; i++)
-                    {
-                        q.push(a[i] - m);
-                    }
+                    j = mid - 1;
                 }
             }
             cout << ans << endl;

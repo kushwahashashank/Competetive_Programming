@@ -1,28 +1,48 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+#define ll long long;
 int main()
 {
     int TESTCASES;
     cin >> TESTCASES;
     while (TESTCASES--)
     {
-        long long n, k;
+        int n, k;
         cin >> n >> k;
-        set<long long> s;
+        int a[n];
+        set<int> s;
         for (int i = 0; i < n; i++)
         {
-            long long a;
-            cin >> a;
-            s.insert(a);
+            cin >> a[i];
+            s.insert(a[i]);
         }
-        if (s.size() > n / 2)
+        if (n == 1)
         {
             cout << 0 << endl;
         }
+        else if (n < 4)
+        {
+            if (a[0] == a[n - 1])
+            {
+                cout << k << endl;
+            }
+            else
+            {
+                cout << 0 << endl;
+            }
+        }
         else
         {
-            cout << k * ((n / 2 - s.size()) + 1) << endl;
+            int min_count = ((n - 4) / 3) + 2;
+            int curr_count = s.size();
+            if ((min_count - curr_count) > 0)
+            {
+                cout << (min_count - curr_count) * k << endl;
+            }
+            else
+            {
+                cout << 0 << endl;
+            }
         }
     }
     return 0;
