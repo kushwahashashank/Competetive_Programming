@@ -6,6 +6,10 @@
         "vector": "cpp",
         "iostream": "cpp",
         "queue": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "algorithm": "cpp",
+        "memory": "cpp",
+        "regex": "cpp",
+        "span": "cpp"
     }
 }
