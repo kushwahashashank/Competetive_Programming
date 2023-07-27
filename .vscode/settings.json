@@ -10,6 +10,14 @@
         "algorithm": "cpp",
         "memory": "cpp",
         "regex": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "complex": "cpp",
+        "valarray": "cpp",
+        "cmath": "cpp",
+        "iosfwd": "cpp",
+        "string": "cpp",
+        "__bit_reference": "cpp",
+        "stack": "cpp",
+        "chrono": "cpp"
     }
 }
