@@ -1,7 +1,6 @@
 // हर हर महादेव
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
 
 int main()
 {
@@ -12,37 +11,42 @@ int main()
     while (TESTCASES--)
     {
         int n, m;
-        cin >> n >> m;
         string s;
-        cin >> s;
-        vector<pair<int, int>> v;
-        for (int i = 0; i < m; i++)
+        cin >> n >> m >> s;
+        vector<int> lf(n), rg(n);
+        lf[0] = -1;
+        for (int i = 0; i < n; ++i)
         {
-            int a, b;
-            cin >> a >> b;
-            v.push_back({a, b});
-        }
-        vector<int> a(n, 0);
-        int c = 0;
-        for (int i = 0; i < n; i++)
-        {
+            if (i > 0)
+                lf[i] = lf[i - 1];
             if (s[i] == '0')
-            {
-                c++;
-            }
-            a[i] = c;
-            cout << a[i] << " ";
+                lf[i] = i;
         }
-        cout << endl;
-        map<int, int> ma;
-        for (int i = 0; i < m; i++)
+        rg[n - 1] = n;
+        for (int i = n - 1; i >= 0; --i)
         {
-            int x = a[v[i].second] - a[v[i].first];
-            int nz = a[v[i].second] - a[x];
-            if (nz != x)
-                ma[x]++;
+            if (i + 1 < n)
+                rg[i] = rg[i + 1];
+            if (s[i] == '1')
+                rg[i] = i;
         }
-        cout << ma.size() << endl;
+
+        set<pair<int, int>> st;
+        for (int i = 0; i < m; ++i)
+        {
+            int l, r;
+            cin >> l >> r;
+            int ll = rg[l - 1], rr = lf[r - 1];
+            if (ll > rr)
+            {
+                st.insert({-1, -1});
+            }
+            else
+            {
+                st.insert({ll, rr});
+            }
+        }
+        cout << st.size() << endl;
     }
     return 0;
 }

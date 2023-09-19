@@ -1,49 +1,59 @@
-#include<bits/stdc++.h>
+// हर हर महादेव
+#include <bits/stdc++.h>
 using namespace std;
+#define ll long long
 
-int main(){
-    int t;
-    cin>>t;
-    for(int i=0;i<t;i++){
-       int n,m;
-       cin>>n>>m;
-       map<int,int>mp;
-       for(int i=0;i<m;i++){
-        int a,b;
-        cin>>a>>b;
-        mp[a]++;
-        mp[b]++;
-       }
-       map<int,int>v;
-       map<int, int>::iterator it=mp.begin();
-       while(it!=mp.end()){
-        v[it->second]++;
-        it++;
-       }
-       it=v.begin();
-            vector<int>y;
-       while(it!=v.end()){
-        y.push_back(it->second);
-        it++;
-       }
-
-    int a2=0,a1=INT_MAX,a3=INT_MIN;
-    for(int j=0;j<3;j++){
-        a2+=y[j];
-        a1=min(a1,y[j]);
-        a3=max(a3,y[j]);
-    }
-    a2-=a1;
-    a2-=a3;
-  
-       if(a1==0){
-cout<<a2-1<<" "<<a3/(a2-1)<<endl;
-       }
-       else{
-        cout<<a2<<" "<<a3/a2<<endl;
-       }
-       
-
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    int TESTCASES;
+    cin >> TESTCASES;
+    while (TESTCASES--)
+    {
+        int n, m;
+        cin >> n >> m;
+        map<int, vector<int>> mp, ma;
+        for (int i = 0; i < m; i++)
+        {
+            int a, b;
+            cin >> a >> b;
+            mp[a].push_back(b);
+            mp[b].push_back(a);
+        }
+        ma = mp;
+        int x = 1, y = 0;
+        for (auto i : mp)
+        {
+            bool b = true;
+            for (int j = 0; j < i.second.size(); j++)
+            {
+                if (mp[i.second[j]].size() == 1)
+                {
+                    b = false;
+                    y = i.second.size() - 1;
+                    break;
+                }
+            }
+            if (b && i.second.size() > 1)
+            {
+                x = i.second.size();
+            }
+        }
+        for (auto i : mp)
+        {
+            if (i.second.size() == 1)
+            {
+                ma.erase(i.first);
+            }
+        }
+        if (ma.size() == 1)
+        {
+            auto it = ma.begin();
+            x = it->second.size();
+            y = 0;
+        }
+        cout << x << " " << y << endl;
     }
     return 0;
 }

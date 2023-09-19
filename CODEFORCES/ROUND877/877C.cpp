@@ -12,7 +12,7 @@ int main()
         cin >> n >> m;
         int a[n][m];
         int x = 1;
-        if (n == 4)
+        if (m == 4)
         {
             int x = 1;
             for (int i = 0; i < n; i++)
@@ -27,7 +27,7 @@ int main()
         else
         {
             int x = 1;
-            for (int i = 0; i < n; i += 2)
+            for (int i = 1; i < n; i += 2)
             {
                 for (int j = 0; j < m; j++)
                 {
@@ -35,7 +35,7 @@ int main()
                     x++;
                 }
             }
-            for (int i = 1; i < n; i += 2)
+            for (int i = 0; i < n; i += 2)
             {
                 for (int j = 0; j < m; j++)
                 {
